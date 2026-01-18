@@ -44,12 +44,11 @@ public class CafeKiosk {
         return totalPrice;
     }
 
-    public Order createOrder() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalTime currentTime = currentDateTime.toLocalTime();
+    public Order createOrder(LocalDateTime orderDateTime) {
+        LocalTime currentTime = orderDateTime.toLocalTime();
         if(currentTime.isBefore(SHOP_OPEN_TIME) || currentTime.isAfter(SHOP_CLOSE_TIME))
-            throw new IllegalArgumentException("주문 시간이 아닙니다. 주문 시간은 "+ SHOP_OPEN_TIME +"~"+ SHOP_CLOSE_TIME +"사이입니다.");
+            throw new IllegalArgumentException("주문시간이 아닙니다. 관리자에게 문의해주세요");
 
-        return new Order(currentDateTime, beverages);
+        return new Order(orderDateTime, beverages);
     }
 }

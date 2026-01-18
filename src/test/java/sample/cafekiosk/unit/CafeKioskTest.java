@@ -4,7 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
-import sample.cafekiosk.unit.order.Order;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -77,8 +78,8 @@ class CafeKioskTest {
         CafeKiosk cafeKiosk = new CafeKiosk();
         cafeKiosk.add(new Americano());
 
-        Order order = cafeKiosk.createOrder();
-        assertThat(order.getBeverages()).hasSize(1);
-        assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
+        assertThatThrownBy(() -> cafeKiosk.createOrder(LocalDateTime.of(2026,1,1,9,0)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("주문시간이 아닙니다. 관리자에게 문의해주세요");
     }
 }
