@@ -46,6 +46,8 @@ public class CafeKiosk {
     }
 
     public Integer calculateTotalPrice() {
-        return 8500;
+        return beverages.stream()
+                .mapToInt(Beverage::getPrice)
+                .sum();
     }
 }
