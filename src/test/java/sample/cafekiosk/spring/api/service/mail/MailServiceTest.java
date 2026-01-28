@@ -3,6 +3,7 @@ package sample.cafekiosk.spring.api.service.mail;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -44,6 +45,11 @@ class MailServiceTest {
         doReturn(true)
                 .when(mailSendClient)
                 .sendEmail(anyString(), anyString(), anyString(), anyString());
+
+        // BDDMockito를 이용하면 아래와 같이 BDD (given-when-then) 패턴에 적합하게 작성할 수 있다.
+        // BDDMockito는 Mockito를 상속받아서 한단계 추상화했을 뿐이다.
+        BDDMockito.given(mailSendClient.sendEmail(anyString(), anyString(), anyString(), anyString()))
+                .willReturn(true);
 
         // when
         boolean result = mailService.sendMail("", "", "", "");
